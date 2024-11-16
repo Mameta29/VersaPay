@@ -1,0 +1,9 @@
+{
+    "name": "versapay",
+    "private": true,
+    "scripts": {
+      "client": "pnpm --filter client dev",
+      "server": "pnpm --filter server dev",
+      "contracts": "pnpm --filter contracts compile"
+    }
+  }
