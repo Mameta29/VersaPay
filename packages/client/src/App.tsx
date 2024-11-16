@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <div>
-      <div className="fixed top-0 right-0 p-4 z-50">
+      <div className="fixed top-16 right-0 p-4 z-50">
         <Button onClick={() => setUserType(userType === 'customer' ? 'merchant' : 'customer')}>
           Switch to {userType === 'customer' ? 'Merchant' : 'Customer'} View
         </Button>

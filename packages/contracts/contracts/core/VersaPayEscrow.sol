@@ -9,6 +9,7 @@ import "../interfaces/IVersaPayEscrow.sol";
 contract VersaPayEscrow is IVersaPayEscrow, ReentrancyGuard {
     IERC20 public immutable usdc;
     address public immutable merchant;
+    address public customer;
     uint256 public constant REFUND_PERIOD = 7 days;
 
     struct Payment {
@@ -33,6 +34,7 @@ contract VersaPayEscrow is IVersaPayEscrow, ReentrancyGuard {
             "Transfer failed"
         );
 
+        customer = msg.sender;
         payment = Payment({
             amount: amount,
             depositTime: block.timestamp,
@@ -63,10 +65,10 @@ contract VersaPayEscrow is IVersaPayEscrow, ReentrancyGuard {
         if (approve) {
             payment.isProcessed = true;
             require(
-                usdc.transfer(msg.sender, payment.amount),
+                usdc.transfer(customer, payment.amount),
                 "Refund transfer failed"
             );
-            emit RefundProcessed(msg.sender, payment.amount);
+            emit RefundProcessed(customer, payment.amount);
         }
     }
 
